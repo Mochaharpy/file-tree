@@ -8,7 +8,7 @@ class ContextMenu extends HTMLElement {
       this.hidePopover();
     });
 
-    this.tree.shadow.addEventListener("file:menu", (event) => {
+    this.tree.shadow.addEventListener("menu:open", (event) => {
       const nativeEvent = event.detail.event;
 
       if (this.matches(":popover-open")) {
@@ -51,6 +51,9 @@ class ContextMenu extends HTMLElement {
     };
 
     this.tree.shadow.addEventListener("file:click", () => {
+      this.hidePopover();
+    });
+    this.tree.shadow.addEventListener("folder:click", () => {
       this.hidePopover();
     });
     window.addEventListener("click", dismiss);

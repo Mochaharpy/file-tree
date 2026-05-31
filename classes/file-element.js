@@ -15,7 +15,9 @@ export default class FileElement extends FileTreeElement {
   constructor() {
     super();
     this.abortController = new AbortController();
+  }
 
+  connectedCallback() {
     initializeEvents(this, this.abortController);
   }
 
@@ -36,14 +38,14 @@ function initializeEvents(element, controller) {
     element.select.bind(element),
     controller,
   );
-
+console.log(element.constructor.name);
   element.createEventListener(
     "contextmenu",
-    "file:menu",
+    "menu:open",
     {
       options: {
         test: function () {
-          alert("jo");
+          console.log(element.dataset.path)
           element.emitCustomEvent("close:menu", {});
         },
       },
