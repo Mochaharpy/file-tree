@@ -1,29 +1,31 @@
 :host {
+  padding: 6px;
   display: block;
   background-color: #1e1e1e;
   color: #cccccc;
   user-select: none;
-  border: 1px solid black;
   width: 200px;
   height: 600px;
+  overflow: hidden; 
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 20px;
+  margin: 0;
+}
+
+:host > ul {
+  padding-left: 0;
 }
 
 file-element,
 folder-element {
   display: block;
+  width: 100%;
   font-family: sans-serif;
-}
-
-.ghost-element {
-  position: absolute;
-  top: -1000px;
-  left: -1000px;
-  background-color: #1e1e1e;
-  color: #ccc;
-  padding: 1px 4px 3px 4px;
-  border: 1px solid #538BFF;
-  border-radius: 100px;
-  overflow: hidden;
+  margin-left: -1000px;
+  padding-left: 1000px;
 }
 
 [data-selected] {
@@ -36,10 +38,16 @@ summary {
   font-weight: bold;
 }
 
-ul {
-  list-style-type: none;
-  padding-left: 20px;
-  margin: 4px 0;
+.ghost-element {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  background-color: #1e1e1e;
+  color: #ccc;
+  padding: 1px 4px 3px 4px;
+  border: 1px solid #538BFF;
+  border-radius: 100px;
+  overflow: hidden;
 }
 
 context-menu {

@@ -18,7 +18,7 @@ export default class FileElement extends FileTreeElement {
   }
 
   connectedCallback() {
-    super.constructedCallback(this.#label)
+    super.constructedCallback(this.#label, this)
     initializeEvents(this, this.abortController);
   }
 

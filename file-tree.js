@@ -144,6 +144,7 @@ customElements.whenDefined("file-tree").then(() => {
       "/src/src/",
       "/index.html",
       "/src/src/text-thing.txt",
+      "/src/src/srcc/super.json"
     ];
 
     tree.insertEventListener("file:click", async (event) => {

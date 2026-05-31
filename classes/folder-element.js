@@ -33,13 +33,11 @@ export class FolderElement extends FileTreeElement {
   }
 
   connectedCallback() {
-    super.constructedCallback(this.#label);
+    super.constructedCallback(this.#label, this);
     this.details = create('details');
     this.summary = create('summary');
     this.ul = create('ul');
 
-    // FIX: Use the private property #label here so it displays
-    // the label that was set prior to mounting.
     this.summary.textContent = `${this.#label}`;
 
     this.details.appendChild(this.summary);
