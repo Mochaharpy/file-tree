@@ -33,7 +33,7 @@ export class FolderElement extends FileTreeElement {
   }
 
   connectedCallback() {
-    super.constructedCallback(this.#label)
+    super.constructedCallback(this.#label);
     this.details = create('details');
     this.summary = create('summary');
     this.ul = create('ul');
@@ -56,8 +56,37 @@ export class FolderElement extends FileTreeElement {
     initializeEvents(this, this.abortController);
   }
 }
-
 export function initializeEvents(element, controller) {
+  let dragTimer = null;
+  let isHoveredPastThreshold = false;
+
+  function resetDragState() {
+    clearTimeout(dragTimer);
+    dragTimer = null;
+    if (isHoveredPastThreshold) {
+      isHoveredPastThreshold = false;
+    }
+  }
+
+  element.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+
+    clearTimeout(dragTimer);
+
+    dragTimer = setTimeout(() => {
+      isHoveredPastThreshold = true;
+      element.details.open = true
+    }, 800);
+  });
+
+  element.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  element.addEventListener('dragleave', () => {
+    resetDragState();
+  });
+
   element.createEventListener(
     'contextmenu',
     'menu:open',
@@ -70,7 +99,7 @@ export function initializeEvents(element, controller) {
       },
     },
     () => {},
-    controller
+    controller,
   );
 }
 

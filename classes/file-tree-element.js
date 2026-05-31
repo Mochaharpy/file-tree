@@ -6,10 +6,10 @@ export default class FileTreeElement extends HTMLElement {
   }
 
   constructedCallback(name) {
-    console.log('hi');
     this.setAttribute('draggable', 'true');
 
     this.addEventListener('dragstart', (e) => {
+      e.stopPropagation()
       const ghost = document.createElement('div');
       ghost.textContent = name || "unknown";
       ghost.classList.add('ghost-element');
