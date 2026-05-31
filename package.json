@@ -1,0 +1,16 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "file-tree.js",
+  "scripts": {
+    "build": "esbuild file-tree.js --bundle --outfile=file-tree.esm.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "esbuild": "0.28.0"
+  }
+}
