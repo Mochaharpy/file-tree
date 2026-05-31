@@ -86,6 +86,14 @@ export function initializeEvents(element, controller) {
   });
 
   element.createEventListener(
+    "click",
+    "folder:click",
+    { path: element.dataset.path },
+    element.select.bind(element),
+    controller,
+  );
+
+  element.createEventListener(
     'contextmenu',
     'menu:open',
     {
