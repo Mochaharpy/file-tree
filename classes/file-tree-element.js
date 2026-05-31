@@ -16,6 +16,14 @@ export default class FileTreeElement extends HTMLElement {
     return customEvent;
   }
 
+  /**
+   * Function to create eventListeners
+   * @param {Event} captureEventType - event that you capture
+   * @param {CustomEvent} sendEventType - event you send
+   * @param {Object} details - the data sending through
+   * @param {Function} func - the function that gets called when granted
+   * @param {AbortController} controller - abort controller
+   */
   createEventListener(
     captureEventType,
     sendEventType,

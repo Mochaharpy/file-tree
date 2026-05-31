@@ -5,37 +5,54 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __esm = (fn, res) => function __init() {
-    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-  };
-  var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-  };
+  var __esm = (fn, res) =>
+    function __init() {
+      return (fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res);
+    };
+  var __commonJS = (cb, mod) =>
+    function __require() {
+      return (
+        mod ||
+          (0, cb[__getOwnPropNames(cb)[0]])(
+            (mod = { exports: {} }).exports,
+            mod,
+          ),
+        mod.exports
+      );
+    };
   var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
+    if ((from && typeof from === "object") || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
         if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+          __defProp(to, key, {
+            get: () => from[key],
+            enumerable:
+              !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+          });
     }
     return to;
   };
-  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-    // If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-    mod
-  ));
+  var __toESM = (mod, isNodeMode, target) => (
+    (target = mod != null ? __create(__getProtoOf(mod)) : {}),
+    __copyProps(
+      // If the importer is in node compatibility mode or this is not an ESM
+      // file that has been converted to a CommonJS file using a Babel-
+      // compatible transform (i.e. "__esModule" has not been set), then set
+      // "default" to the CommonJS "module.exports" for node compatibility.
+      isNodeMode || !mod || !mod.__esModule
+        ? __defProp(target, "default", { value: mod, enumerable: true })
+        : target,
+      mod,
+    )
+  );
 
   // utils/util.js
   var create, registry;
   var init_util = __esm({
     "utils/util.js"() {
       create = (tag) => document.createElement(tag);
-      registry = globalThis.customElements ?? { define: () => {
-      } };
-    }
+      registry = globalThis.customElements ?? { define: () => {} };
+    },
   });
 
   // classes/file-tree-element.js
@@ -51,13 +68,18 @@
           const customEvent = new CustomEvent(event, {
             detail,
             bubbles: true,
-            cancelable: true
+            cancelable: true,
           });
           this.dispatchEvent(customEvent);
           return customEvent;
         }
-        createEventListener(captureEventType, sendEventType, details, func = () => {
-        }, controller) {
+        createEventListener(
+          captureEventType,
+          sendEventType,
+          details,
+          func = () => {},
+          controller,
+        ) {
           const options = {};
           if (controller) {
             options.signal = controller.signal;
@@ -75,9 +97,9 @@
                 grantPermission = resolve;
               });
               const customEvent = this.emitCustomEvent(sendEventType, {
-                ...details || {},
+                ...(details || {}),
                 event: nativeEvent,
-                grant: grantPermission
+                grant: grantPermission,
               });
               if (!customEvent.defaultPrevented) {
                 func();
@@ -86,18 +108,19 @@
               await permission;
               func();
             },
-            options
+            options,
           );
         }
         select() {
-          const selected = this.tree.shadowRoot.querySelector("[data-selected]");
+          const selected =
+            this.tree.shadowRoot.querySelector("[data-selected]");
           if (selected) {
             selected.removeAttribute("data-selected");
           }
           this.setAttribute("data-selected", "active");
         }
       };
-    }
+    },
   });
 
   // classes/file-element.js
@@ -107,22 +130,21 @@
       "file:click",
       { path: element.dataset.path },
       element.select.bind(element),
-      controller
+      controller,
     );
     element.createEventListener(
       "contextmenu",
       "file:menu",
       {
         options: {
-          test: function() {
+          test: function () {
             alert("jo");
             element.emitCustomEvent("close:menu", {});
-          }
-        }
+          },
+        },
       },
-      () => {
-      },
-      controller
+      () => {},
+      controller,
     );
   }
   var FileElement;
@@ -138,7 +160,7 @@
           "file:create",
           "file:rename",
           "file:move",
-          "file:delete"
+          "file:delete",
         ];
         constructor() {
           super();
@@ -154,7 +176,7 @@
         }
       };
       registry.define("file-element", FileElement);
-    }
+    },
   });
 
   // classes/folder-element.js
@@ -172,7 +194,7 @@
           `folder:create`,
           `folder:rename`,
           `folder:move`,
-          `folder:delete`
+          `folder:delete`,
         ];
         details = null;
         ul = null;
@@ -180,8 +202,8 @@
           super();
         }
         /**
-        * @param {string} newLabel
-        */
+         * @param {string} newLabel
+         */
         set label(newLabel) {
           this.#label = newLabel;
           if (this.summary) this.summary.textContent = `${newLabel}`;
@@ -206,7 +228,7 @@
         }
       };
       registry.define("folder-element", FolderElement);
-    }
+    },
   });
 
   // classes/context-menu-element.js
@@ -245,7 +267,8 @@
           });
           const dismiss = (e) => {
             const isEscape = e.key === "Escape";
-            const isClickAway = e.type === "click" && !e.composedPath().includes(this);
+            const isClickAway =
+              e.type === "click" && !e.composedPath().includes(this);
             if (isEscape || isClickAway) {
               this.hidePopover();
             }
@@ -258,7 +281,7 @@
         }
       };
       customElements.define("context-menu", ContextMenu);
-    }
+    },
   });
 
   // file-tree.js
@@ -301,7 +324,10 @@
         connectedCallback() {
           this.shadow.addEventListener("folder:toggle", (event) => {
             const folderElement = event.detail.folderElement;
-            this.#buildFolder(folderElement.dataset.folderPath, folderElement.ul);
+            this.#buildFolder(
+              folderElement.dataset.folderPath,
+              folderElement.ul,
+            );
           });
         }
         render() {
@@ -313,8 +339,16 @@
           this.#buildFolder("/", this.shadow);
         }
         sortChildren(children) {
-          const folders = children.filter((name) => name.endsWith("/")).sort((a, b) => a.localeCompare(b, void 0, { sensitivity: "base" }));
-          const files = children.filter((name) => !name.endsWith("/")).sort((a, b) => a.localeCompare(b, void 0, { sensitivity: "base" }));
+          const folders = children
+            .filter((name) => name.endsWith("/"))
+            .sort((a, b) =>
+              a.localeCompare(b, void 0, { sensitivity: "base" }),
+            );
+          const files = children
+            .filter((name) => !name.endsWith("/"))
+            .sort((a, b) =>
+              a.localeCompare(b, void 0, { sensitivity: "base" }),
+            );
           const sortedChildren = [...folders, ...files];
           return sortedChildren;
         }
@@ -328,7 +362,9 @@
           for (const path of this.#paths) {
             if (!isRoot && !path.startsWith(targetFolderPath)) continue;
             if (path === targetFolderPath) continue;
-            const relativePath = isRoot ? path.slice(1) : path.slice(targetFolderPath.length);
+            const relativePath = isRoot
+              ? path.slice(1)
+              : path.slice(targetFolderPath.length);
             const segments = relativePath.split("/").filter(Boolean);
             if (segments.length > 0) {
               const name = segments[0];
@@ -344,7 +380,9 @@
             const el = create(isFile ? "file-element" : "folder-element");
             el.tree = this;
             el.label = cleanName;
-            const fullChildPath = isRoot ? `/${name}` : `${targetFolderPath}${name}`;
+            const fullChildPath = isRoot
+              ? `/${name}`
+              : `${targetFolderPath}${name}`;
             if (isFile) {
               el.dataset.path = fullChildPath;
             } else {
@@ -363,7 +401,7 @@
             "/src/index.html",
             "/src/src/",
             "/index.html",
-            "/src/src/jonathan-is-a-poop.txt"
+            "/src/src/jonathan-is-a-poop.txt",
           ];
           tree.insertEventListener("file:click", async (event) => {
             event.preventDefault();
@@ -371,7 +409,7 @@
           });
         }
       });
-    }
+    },
   });
   require_file_tree();
 })();

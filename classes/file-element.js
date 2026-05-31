@@ -1,15 +1,15 @@
-import FileTreeElement from './file-tree-element.js';
-import { create, registry } from '../utils/util.js';
+import FileTreeElement from "./file-tree-element.js";
+import { create, registry } from "../utils/util.js";
 
 export default class FileElement extends FileTreeElement {
-  #label = '';
+  #label = "";
   #customEvents = [
-    'file:click',
-    'file:menu',
-    'file:create',
-    'file:rename',
-    'file:move',
-    'file:delete',
+    "file:click",
+    "file:menu",
+    "file:create",
+    "file:rename",
+    "file:move",
+    "file:delete",
   ];
 
   constructor() {
@@ -30,21 +30,21 @@ export default class FileElement extends FileTreeElement {
 
 function initializeEvents(element, controller) {
   element.createEventListener(
-    'click',
-    'file:click',
+    "click",
+    "file:click",
     { path: element.dataset.path },
     element.select.bind(element),
     controller,
   );
 
   element.createEventListener(
-    'contextmenu',
-    'file:menu',
+    "contextmenu",
+    "file:menu",
     {
       options: {
         test: function () {
-          alert('jo');
-          element.emitCustomEvent('close:menu', {})
+          alert("jo");
+          element.emitCustomEvent("close:menu", {});
         },
       },
     },
@@ -53,4 +53,4 @@ function initializeEvents(element, controller) {
   );
 }
 
-registry.define('file-element', FileElement);
+registry.define("file-element", FileElement);
