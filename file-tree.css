@@ -14,7 +14,20 @@ folder-element {
   font-family: sans-serif;
 }
 
+.ghost-element {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  background-color: #1e1e1e;
+  color: #ccc;
+  padding: 1px 4px 3px 4px;
+  border: 1px solid #538BFF;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
 [data-selected] {
+  color: #1e1e1e;
   background-color: aqua;
 }
 

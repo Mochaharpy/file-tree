@@ -1,7 +1,7 @@
 import FileTreeElement from './file-tree-element.js';
 import { create, registry } from '../utils/util.js';
 
-export default class FolderElement extends FileTreeElement {
+export class FolderElement extends FileTreeElement {
   #label = '';
   #isPopulated = false;
   #customEvents = [
@@ -33,6 +33,7 @@ export default class FolderElement extends FileTreeElement {
   }
 
   connectedCallback() {
+    super.constructedCallback(this.#label)
     this.details = create('details');
     this.summary = create('summary');
     this.ul = create('ul');
@@ -56,7 +57,7 @@ export default class FolderElement extends FileTreeElement {
   }
 }
 
-function initializeEvents(element, controller) {
+export function initializeEvents(element, controller) {
   element.createEventListener(
     'contextmenu',
     'menu:open',

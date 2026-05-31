@@ -5,6 +5,24 @@ export default class FileTreeElement extends HTMLElement {
     super();
   }
 
+  constructedCallback(name) {
+    console.log('hi');
+    this.setAttribute('draggable', 'true');
+
+    this.addEventListener('dragstart', (e) => {
+      const ghost = document.createElement('div');
+      ghost.textContent = name || "unknown";
+      ghost.classList.add('ghost-element');
+
+      this.tree.shadow.appendChild(ghost);
+      e.dataTransfer.setDragImage(ghost, 0, 0);
+
+    requestAnimationFrame(() => {
+      ghost.remove();
+    });
+    });
+  }
+
   emitCustomEvent(event, detail = {}) {
     const customEvent = new CustomEvent(event, {
       detail,
